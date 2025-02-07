@@ -1,5 +1,5 @@
 # Example project webapp "Крестики-нолики" 
-
+http://194.190.152.173/
 #### Authorization page
 ![image](https://github.com/user-attachments/assets/84fd8188-7359-4ce1-be67-742695bd2500)
 #### GameField page (Dekstop 1440x1015)
