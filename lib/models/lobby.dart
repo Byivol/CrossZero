@@ -5,6 +5,7 @@ class Lobby {
   final List<Player> players;
   final List<String> gameField;
   final bool isStarted;
+  String? winnerSymbol;
   List<int> winCombination;
   String currentPlayer;
   Duration duration;
@@ -16,7 +17,8 @@ class Lobby {
       required this.isStarted,
       required this.currentPlayer,
       required this.winCombination,
-      required this.duration});
+      required this.duration,
+      required this.winnerSymbol});
 
   factory Lobby.fromJson(Map<String, dynamic> json) {
     return Lobby(
@@ -27,6 +29,7 @@ class Lobby {
             .toList(),
         gameField: List<String>.from(json['gameField'] as List),
         isStarted: json['isStarted'] as bool,
+        winnerSymbol: json['winnerSymbol'],
         currentPlayer: json['currentPlayer'],
         winCombination: List<int>.from(json['winCombination'] as List));
   }

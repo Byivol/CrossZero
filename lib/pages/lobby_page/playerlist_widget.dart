@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'lobbydata_inherited.dart';
 
@@ -24,7 +25,7 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
     return Padding(
       padding: widget.padding,
       child: Container(
-        width: 300,
+        width: 250,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -41,9 +42,29 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 15),
-              child: Text(
-                "Игроки",
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Игроки",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w900, fontSize: 18)),
+                  Spacer(),
+                  Text('ID лобби: ', style: TextStyle(fontSize: 14)),
+                  GestureDetector(
+                      onTap: () {
+                        Clipboard.setData(
+                            ClipboardData(text: lobby.lobby.idLobby));
+                      },
+                      child: Column(
+                        children: [
+                          Text('${lobby.lobby.idLobby}  ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 14)),
+                        ],
+                      )),
+                ],
               ),
             ),
             Stack(
@@ -65,7 +86,7 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                           }
                         },
                       ),
-                      title: Text(
+                      title: SelectableText(
                         player.namePlayer,
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
@@ -79,19 +100,21 @@ class _PlayerListWidgetState extends State<PlayerListWidget> {
                     );
                   }).toList(),
                 ),
-                IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    splashRadius: 12,
-                    iconSize: 32,
-                    onPressed: () {
-                      final message = {
-                        'action': 'swap_symbol_player',
-                        'idlobby': lobby.lobby.idLobby,
-                      };
+                !lobby.lobby.isStarted
+                    ? IconButton(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        splashRadius: 12,
+                        iconSize: 32,
+                        onPressed: () {
+                          final message = {
+                            'action': 'swap_symbol_player',
+                            'idlobby': lobby.lobby.idLobby,
+                          };
 
-                      lobby.channel.sink.add(jsonEncode(message));
-                    },
-                    icon: Icon(Icons.sync_sharp)),
+                          lobby.channel.sink.add(jsonEncode(message));
+                        },
+                        icon: Icon(Icons.sync_sharp))
+                    : SizedBox.shrink(),
               ],
             ),
           ],

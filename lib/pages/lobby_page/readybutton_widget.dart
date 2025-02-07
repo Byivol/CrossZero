@@ -22,10 +22,10 @@ class _ReadyFilledButtonState extends State<ReadyFilledButton> {
         ? lobby.lobby.players[currentPlayerIndex].namePlayer
         : '';
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
-      width: 300,
-      height: 50,
-      child: FilledButton(
+        margin: EdgeInsets.symmetric(vertical: 16),
+        width: 300,
+        height: 50,
+        child: FilledButton(
           style: FilledButton.styleFrom(
             disabledForegroundColor: Colors.white,
             foregroundColor: Colors.white,
@@ -36,30 +36,59 @@ class _ReadyFilledButtonState extends State<ReadyFilledButton> {
             backgroundColor: const Color.fromRGBO(55, 55, 69, 1),
           ),
           onPressed: () {},
-          child: RichText(
-            text: TextSpan(
-              style: GoogleFonts.roboto(
-                letterSpacing: 1,
-                fontSize: 16,
-                color: Colors.white,
-              ),
-              children: [
-                TextSpan(text: 'Ходит '),
-                WidgetSpan(
-                  child: Image.network(
-                    lobby.lobby.currentPlayer == 'X'
-                        ? 'https://i.imgur.com/Dbqbj7X.png'
-                        : 'https://i.imgur.com/xaBBOby.png',
-                    height: 16,
-                    width: 16,
+          child: lobby.lobby.winnerSymbol != null
+              ? RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.roboto(
+                      letterSpacing: 1,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                    children: lobby.lobby.winnerSymbol == 'Draw'
+                        ? [
+                            TextSpan(text: 'Ничья!'),
+                          ]
+                        : [
+                            TextSpan(text: 'Win '),
+                            WidgetSpan(
+                              child: Image.network(
+                                lobby.lobby.winnerSymbol == 'X'
+                                    ? 'https://i.imgur.com/Dbqbj7X.png'
+                                    : 'https://i.imgur.com/xaBBOby.png',
+                                height: 16,
+                                width: 16,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' $currentPlayerName',
+                            ),
+                          ],
+                  ),
+                )
+              : RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.roboto(
+                      letterSpacing: 1,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                    children: [
+                      TextSpan(text: 'Ходит '),
+                      WidgetSpan(
+                        child: Image.network(
+                          lobby.lobby.currentPlayer == 'X'
+                              ? 'https://i.imgur.com/Dbqbj7X.png'
+                              : 'https://i.imgur.com/xaBBOby.png',
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' $currentPlayerName',
+                      ),
+                    ],
                   ),
                 ),
-                TextSpan(
-                  text: ' $currentPlayerName',
-                ),
-              ],
-            ),
-          )),
-    );
+        ));
   }
 }

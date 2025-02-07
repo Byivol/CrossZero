@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,29 +18,14 @@ class StopwatchWidget extends StatefulWidget {
 
 class _StopwatchWidgetState extends State<StopwatchWidget> {
   final Stopwatch _stopwatch = Stopwatch();
-  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      final lobby = LobbyData.of(context);
-      if (lobby != null && lobby.lobby.isStarted) {
-        if (!_stopwatch.isRunning) {
-          _stopwatch.start();
-        }
-        setState(() {});
-      } else {
-        if (_stopwatch.isRunning) {
-          _stopwatch.stop();
-        }
-      }
-    });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     _stopwatch.stop();
     super.dispose();
   }
@@ -57,13 +41,10 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
   @override
   Widget build(BuildContext context) {
     final lobby = LobbyData.of(context);
-    bool isStarted = lobby!.lobby.isStarted;
-    Duration _stopwatchDuration;
-    if (_stopwatch.elapsed.inSeconds > lobby!.lobby.duration.inSeconds) {
-      _stopwatchDuration = _stopwatch.elapsed;
-    } else {
-      _stopwatchDuration = lobby.lobby.duration;
-    }
+    Duration stopwatchDuration;
+
+    stopwatchDuration = lobby!.lobby.duration;
+
     return Container(
       width: 120,
       height: 60,
@@ -74,11 +55,14 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Center(
-        child: Text(
-          _formatTime(_stopwatchDuration),
-          style: GoogleFonts.roboto(
-            fontSize: 22,
-            fontWeight: FontWeight.w900,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            _formatTime(stopwatchDuration),
+            style: GoogleFonts.roboto(
+              fontSize: 22,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
       ),

@@ -16,28 +16,28 @@ ThemeData getDarkTheme() {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Color.fromARGB(73, 0, 0, 0),
-          width: 2.0,
+          color: Color.fromRGBO(220, 220, 223, 1),
+          width: 1.0,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Color.fromARGB(112, 255, 0, 0),
+          color: Color.fromRGBO(220, 220, 223, 1),
           width: 1.0,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Color.fromARGB(73, 0, 0, 0),
-          width: 2.0,
+          color: Color.fromRGBO(220, 220, 223, 1),
+          width: 1.0,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(
-          color: Color.fromARGB(73, 0, 0, 0),
+          color: Color.fromRGBO(220, 220, 223, 1),
           width: 2.0,
         ),
       ),
